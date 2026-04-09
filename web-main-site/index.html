@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+    <title>INTEC — Digital-агентство</title>
+    <style>
+        /* ===== RESET ===== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1a1a1a;
+            background: #fff;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            color: #9700D3;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        ul { list-style: none; }
+
+        .container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        button {
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            border: none;
+            background: none;
+        }
+
+        /* ===== TOP BAR ===== */
+        .topbar {
+            background: #fff;
+            border-bottom: 1px solid #e5e5e5;
+            padding: 10px 0;
+            font-size: 13px;
+        }
+
+        .topbar__inner {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .topbar__location {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: #333;
+        }
+
+        .topbar__location svg {
+            width: 14px;
+            height: 14px;
+            fill: #9700D3;
+        }
+
+        .topbar__links {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .topbar__links a {
+            font-weight: 500;
+            font-size: 13px;
+            color: #555;
+        }
+
+        .topbar__links a:hover {
+            color: #9700D3;
+        }
+
+        .topbar__cta {
+            margin-left: auto;
+            background: #9700D3;
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .topbar__cta:hover {
+            background: #7a00a8;
+            color: #fff;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            background: #1e1e2e;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header__inner {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .header__logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header__logo img {
+            width: 36px;
+            height: 38px;
+        }
+
+        .header__logo-text {
+            font-weight: 800;
+            font-size: 22px;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+
+        .header__nav {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .header__nav a {
+            color: rgba(255,255,255,0.85);
+            font-size: 15px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .header__nav a:hover {
+            color: #c77dff;
+        }
+
+        .header__phone {
+            color: #fff;
+            font-weight: 700;
+            font-size: 17px;
+            white-space: nowrap;
+        }
+
+        .header__address {
+            color: rgba(255,255,255,0.6);
+            font-size: 13px;
+        }
+
+        .header__actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-left: auto;
+        }
+
+        .header__action-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            position: relative;
+            cursor: pointer;
+            border: none;
+        }
+
+        .header__action-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .header__action-btn svg {
+            width: 22px;
+            height: 22px;
+            fill: #fff;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: #9700D3;
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cart-count.hidden {
+            display: none;
+        }
+
+        .user-greeting {
+            color: rgba(255,255,255,0.85);
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .user-greeting strong {
+            color: #c77dff;
+        }
+
+        .btn-logout {
+            color: rgba(255,255,255,0.6);
+            font-size: 12px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.2s;
+            background: transparent;
+        }
+
+        .btn-logout:hover {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+
+        /* ===== MODALS ===== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: #fff;
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 440px;
+            position: relative;
+            margin: 20px;
+        }
+
+        .modal__close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: none;
+            transition: background 0.2s;
+        }
+
+        .modal__close:hover {
+            background: #eee;
+        }
+
+        .modal__close svg {
+            width: 18px;
+            height: 18px;
+            fill: #666;
+        }
+
+        .modal__title {
+            font-family: 'Manrope', sans-serif;
+            font-weight: 800;
+            font-size: 28px;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+
+        .modal__subtitle {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 6px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            transition: border-color 0.2s;
+            color: #333;
+        }
+
+        .form-group input:focus {
+            border-color: #9700D3;
+        }
+
+        .form-group input::placeholder {
+            color: #aaa;
+        }
+
+        .modal-btn {
+            width: 100%;
+            padding: 14px;
+            background: #9700D3;
+            color: #fff;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 8px;
+        }
+
+        .modal-btn:hover {
+            background: #7a00a8;
+        }
+
+        .modal-switch {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #888;
+        }
+
+        .modal-switch a {
+            color: #9700D3;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .modal-switch a:hover {
+            text-decoration: underline;
+        }
+
+        .form-error {
+            color: #e53e3e;
+            font-size: 12px;
+            margin-top: 4px;
+            display: none;
+        }
+
+        .form-error.visible {
+            display: block;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            padding: 80px 0 60px;
+        }
+
+        .hero__inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .hero__breadcrumb {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 12px;
+        }
+
+        .hero__label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #9700D3;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .hero__title {
+            font-family: 'Manrope', sans-serif;
+            font-weight: 800;
+            font-size: 52px;
+            line-height: 1.1;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+        }
+
+        .hero__desc {
+            font-size: 17px;
+            color: #444;
+            line-height: 1.65;
+            margin-bottom: 32px;
+        }
+
+        .hero__buttons {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #9700D3;
+            color: #fff;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: #7a00a8;
+            color: #fff;
+        }
+
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            color: #9700D3;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            border: 2px solid #9700D3;
+            transition: all 0.2s;
+        }
+
+        .btn-outline:hover {
+            background: #9700D3;
+            color: #fff;
+        }
+
+        .hero__image {
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .hero__image img {
+            width: 100%;
+            height: auto;
+        }
+
+        /* ===== ACHIEVEMENTS ===== */
+        .achievements {
+            padding: 60px 0;
+            background: #fff;
+        }
+
+        .achievements__grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .achievement {
+            background: #fff;
+            border-radius: 16px;
+            padding: 32px 24px;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid #ede8f4;
+        }
+
+        .achievement:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(151,0,211,0.08);
+        }
+
+        .achievement__icon {
+            width: 64px;
+            height: 64px;
+            background: #9700D3;
+            border-radius: 50%;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .achievement__icon svg {
+            width: 32px;
+            height: 32px;
+            fill: #fff;
+        }
+
+        .achievement__badge {
+            display: inline-block;
+            background: #9700D3;
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .achievement__text {
+            font-size: 15px;
+            color: #333;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        /* ===== ABOUT ===== */
+        .about {
+            padding: 80px 0;
+        }
+
+        .about__inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about__title {
+            font-family: 'Manrope', sans-serif;
+            font-weight: 800;
+            font-size: 36px;
+            color: #1a1a1a;
+            margin-bottom: 24px;
+            line-height: 1.2;
+        }
+
+        .about__text {
+            font-size: 16px;
+            color: #444;
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .about__author {
+            margin-top: 24px;
+        }
+
+        .about__author-name {
+            font-weight: 700;
+            font-size: 18px;
+            color: #1a1a1a;
+        }
+
+        .about__author-role {
+            font-size: 14px;
+            color: #888;
+        }
+
+        .about__image {
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .about__image img {
+            width: 100%;
+            height: auto;
+        }
+
+        /* ===== CTA SECTION ===== */
+        .cta {
+            padding: 80px 0;
+        }
+
+        .cta__inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .cta__title {
+            font-family: 'Manrope', sans-serif;
+            font-weight: 800;
+            font-size: 44px;
+            color: #1a1a1a;
+            margin-bottom: 28px;
+        }
+
+        .cta__form {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .cta__form input,
+        .cta__form textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            transition: border-color 0.2s;
+            color: #333;
+        }
+
+        .cta__form input::placeholder,
+        .cta__form textarea::placeholder {
+            color: #999;
+        }
+
+        .cta__form input:focus,
+        .cta__form textarea:focus {
+            border-color: #9700D3;
+        }
+
+        .cta__form textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .cta__consent {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 14px;
+            color: #777;
+            margin-top: 4px;
+        }
+
+        .cta__consent input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: #9700D3;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .cta__contacts h3 {
+            font-family: 'Manrope', sans-serif;
+            font-weight: 800;
+            font-size: 28px;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+        }
+
+        .cta__contacts p {
+            font-size: 17px;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .cta__contacts p:last-of-type {
+            margin-bottom: 24px;
+        }
+
+        .cta__socials {
+            display: flex;
+            gap: 12px;
+        }
+
+        .cta__socials a {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #9700D3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.2s;
+        }
+
+        .cta__socials a:hover {
+            opacity: 0.8;
+        }
+
+        .cta__socials svg {
+            width: 24px;
+            height: 24px;
+            fill: #fff;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: #1e1e2e;
+            color: #fff;
+            padding: 50px 0 30px;
+        }
+
+        .footer__top {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .footer__logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .footer__logo img {
+            width: 36px;
+            height: 38px;
+        }
+
+        .footer__logo-text {
+            font-weight: 800;
+            font-size: 22px;
+            letter-spacing: 1px;
+        }
+
+        .footer__desc {
+            font-size: 13px;
+            color: rgba(255,255,255,0.55);
+            line-height: 1.5;
+        }
+
+        .footer__heading {
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 14px;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .footer__links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer__links a {
+            font-size: 13px;
+            color: rgba(255,255,255,0.6);
+        }
+
+        .footer__links a:hover {
+            color: #c77dff;
+        }
+
+        .footer__phone {
+            font-weight: 700;
+            font-size: 20px;
+            color: #fff;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .footer__address {
+            font-size: 13px;
+            color: rgba(255,255,255,0.55);
+        }
+
+        .footer__bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .footer__copy {
+            font-size: 12px;
+            color: rgba(255,255,255,0.4);
+        }
+
+        .footer__socials {
+            display: flex;
+            gap: 10px;
+        }
+
+        .footer__socials a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .footer__socials a:hover {
+            background: #9700D3;
+        }
+
+        .footer__socials svg {
+            width: 20px;
+            height: 20px;
+            fill: rgba(255,255,255,0.7);
+        }
+
+        /* ===== TOAST ===== */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #1a1a1a;
+            color: #fff;
+            padding: 14px 24px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            z-index: 2000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .hero__inner {
+                grid-template-columns: 1fr;
+            }
+
+            .hero__title {
+                font-size: 40px;
+            }
+
+            .achievements__grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .about__inner {
+                grid-template-columns: 1fr;
+            }
+
+            .cta__inner {
+                grid-template-columns: 1fr;
+            }
+
+            .footer__top {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero__title {
+                font-size: 30px;
+            }
+
+            .catalog__grid {
+                grid-template-columns: 1fr;
+            }
+
+            .achievements__grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about__title {
+                font-size: 28px;
+            }
+
+            .cta__title {
+                font-size: 32px;
+            }
+
+            .footer__top {
+                grid-template-columns: 1fr;
+            }
+
+            .topbar__inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .topbar__cta {
+                margin-left: 0;
+            }
+
+            .header__nav {
+                gap: 10px;
+            }
+
+            .header__actions {
+                margin-left: 0;
+            }
+
+            .modal {
+                padding: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+    <div class="topbar__inner container">
+        <div class="topbar__location">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"/></svg>
+            <span>Челябинск</span>
+        </div>
+        <div class="topbar__links">
+            <a href="#">Акции</a>
+            <a href="#">Статьи</a>
+            <a href="#">Блог</a>
+            <a href="#">Новости</a>
+            <a href="#">Вакансии</a>
+            <a href="#">Техподдержка</a>
+            <a href="#">Партнерам</a>
+        </div>
+        <a href="#" class="topbar__cta">Купить онлайн</a>
+    </div>
+</div>
+
+<!-- HEADER -->
+<header class="header">
+    <div class="header__inner container">
+        <div class="header__logo">
+            <a href="./index.html">
+                <img src="./Logo.svg" alt="INTEC Logo">
+            </a>
+            <a href="./index.html" class="header__logo-text">INTEC</a>
+        </div>
+        <nav class="header__nav">
+            <a href="#">Главная</a>
+            <a href="../index.html">Веб-дизайн</a>
+            <a href="../web-logo-site/index.html">Логотип</a>
+        </nav>
+        <div class="header__actions">
+            <!-- Корзина -->
+            <button class="header__action-btn" id="cartBtn" title="Корзина" onclick="openCart()">
+                <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0020 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                <span class="cart-count hidden" id="cartCount">0</span>
+            </button>
+            <!-- Профиль / Войти -->
+            <button class="header__action-btn" id="profileBtn" title="Войти" onclick="openModal('loginModal')">
+                <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+            </button>
+            <!-- Имя пользователя (после входа) -->
+            <span class="user-greeting hidden" id="userGreeting"></span>
+            <button class="btn-logout hidden" id="logoutBtn" onclick="logout()">Выйти</button>
+        </div>
+    </div>
+</header>
+
+<!-- MODAL: Login -->
+<div class="modal-overlay" id="loginModal">
+    <div class="modal">
+        <button class="modal__close" onclick="closeModal('loginModal')">
+            <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+        <h2 class="modal__title">Вход</h2>
+        <p class="modal__subtitle">Введите данные для входа в аккаунт</p>
+        <form id="loginForm" onsubmit="handleLogin(event)">
+            <div class="form-group">
+                <label for="loginEmail">Email</label>
+                <input type="email" id="loginEmail" placeholder="your@email.com" required>
+            </div>
+            <div class="form-group">
+                <label for="loginPassword">Пароль</label>
+                <input type="password" id="loginPassword" placeholder="Введите пароль" required>
+            </div>
+            <div class="form-error" id="loginError"></div>
+            <button type="submit" class="modal-btn">Войти</button>
+        </form>
+        <div class="modal-switch">
+            Нет аккаунта? <a onclick="switchModal('loginModal', 'registerModal')">Зарегистрироваться</a>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL: Register -->
+<div class="modal-overlay" id="registerModal">
+    <div class="modal">
+        <button class="modal__close" onclick="closeModal('registerModal')">
+            <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+        <h2 class="modal__title">Регистрация</h2>
+        <p class="modal__subtitle">Создайте аккаунт для покупок</p>
+        <form id="registerForm" onsubmit="handleRegister(event)">
+            <div class="form-group">
+                <label for="regName">Имя</label>
+                <input type="text" id="regName" placeholder="Ваше имя" required>
+            </div>
+            <div class="form-group">
+                <label for="regEmail">Email</label>
+                <input type="email" id="regEmail" placeholder="your@email.com" required>
+            </div>
+            <div class="form-group">
+                <label for="regPassword">Пароль</label>
+                <input type="password" id="regPassword" placeholder="Минимум 6 символов" required minlength="6">
+            </div>
+            <div class="form-error" id="registerError"></div>
+            <button type="submit" class="modal-btn">Зарегистрироваться</button>
+        </form>
+        <div class="modal-switch">
+            Уже есть аккаунт? <a onclick="switchModal('registerModal', 'loginModal')">Войти</a>
+        </div>
+    </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero__inner container">
+        <div class="hero__content">
+            <div class="hero__breadcrumb">Готовые сайты, разработка, продвижение</div>
+            <div class="hero__label">DIGITAL-АГЕНТСТВО</div>
+            <h1 class="hero__title">ВАШИ ИДЕИ ГОТОВЫ К ЗАПУСКУ</h1>
+            <div class="hero__buttons">
+                <button class="btn-primary" onclick="addToCart('main')">Стать клиентом</button>
+                <a href="#" class="btn-outline">Заполнить бриф</a>
+            </div>
+        </div>
+        <div class="hero__image">
+            <img src="./images/v1_201.png" alt="Digital-агентство INTEC">
+        </div>
+    </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section class="achievements">
+    <div class="container">
+        <div class="achievements__grid">
+            <div class="achievement">
+                <div class="achievement__icon">
+                    <svg viewBox="0 0 24 24"><path d="M7 14l5-5 5 5z"/></svg>
+                </div>
+                <div class="achievement__badge">топ 3</div>
+                <p class="achievement__text">лидер продаж 1С-Битрикс в РФ</p>
+            </div>
+            <div class="achievement">
+                <div class="achievement__icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                </div>
+                <div class="achievement__badge">топ 3</div>
+                <p class="achievement__text">разработчиков готовых сайтов на 1С-Битрикс в РФ</p>
+            </div>
+            <div class="achievement">
+                <div class="achievement__icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+                </div>
+                <div class="achievement__badge">Золотой</div>
+                <p class="achievement__text">сертифицированный партнёр 1С-Битрикс</p>
+            </div>
+            <div class="achievement">
+                <div class="achievement__icon">
+                    <svg viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/></svg>
+                </div>
+                <div class="achievement__badge">Аккредитованная</div>
+                <p class="achievement__text">ИТ-компания</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about">
+    <div class="about__inner container">
+        <div>
+            <h2 class="about__title">МЫ ДЕЛАЕМ МАРКЕТИНГ ПОНЯТНЫМ, ПРЕДСКАЗУЕМЫМ И ДОСТУПНЫМ ДЛЯ ПРЕДПРИНИМАТЕЛЕЙ</h2>
+            <p class="about__text">Приветствую, друзья! Наша компания помогает бизнесам расти, расширять аудиторию и увеличивать прибыль. INTEC — это команда профессионалов: разработчиков, дизайнеров, маркетологов. Мы создаем уникальные сайты с нуля, а также разрабатываем готовые решения на базе 1С-Битрикс.</p>
+            <p class="about__text">Также наши специалисты помогут вам продвигаться в соцсетях, поисковых системах и на маркетплейсах.</p>
+            <div class="about__author">
+                <div class="about__author-name">Ярослав Голуб</div>
+                <div class="about__author-role">Руководитель компании INTEC</div>
+            </div>
+        </div>
+        <div class="about__image">
+            <img src="./images/v1_144.png" alt="Руководитель INTEC">
+        </div>
+    </div>
+</section>
+
+<!-- CTA + CONTACTS -->
+<section class="cta">
+    <div class="cta__inner container">
+        <div>
+            <h2 class="cta__title">ЗАЯВКА</h2>
+            <form class="cta__form" onsubmit="event.preventDefault(); showToast('Заявка отправлена!');">
+                <input type="email" placeholder="Email:">
+                <input type="tel" placeholder="Номер телефона:">
+                <textarea placeholder="Ваш комментарий:"></textarea>
+                <button type="submit" class="btn-primary">Оставить заявку</button>
+                <div class="cta__consent">
+                    <input type="checkbox">
+                    <span>Вы соглашаетесь с условиями обработки персональных данных (ознакомиться→)</span>
+                </div>
+            </form>
+        </div>
+        <div class="cta__contacts">
+            <h3>Наши контакты:</h3>
+            <p>Номер телефона: +7 (904) 933-28-44</p>
+            <p>Почта: sale@asit.club</p>
+            <div class="cta__socials">
+                <a href="#">
+                    <svg viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
+                </a>
+                <a href="#">
+                    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                </a>
+                <a href="#">
+                    <svg viewBox="0 0 24 24"><path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.391 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4.03 8.57 4.03 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.678.863 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.204.17-.407.44-.407h2.744c.373 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.813-.542 1.253-1.406 2.15-3.574 2.15-3.574.119-.254.322-.491.763-.491h1.744c.525 0 .644.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.05.17.49-.085.744-.576.744z"/></svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer__top">
+            <div>
+                <div class="footer__logo">
+                    <a href="./index.html">
+                        <img src="./Logo.svg" alt="INTEC Logo">
+                    </a>
+                    <a href="./index.html" class="footer__logo-text">INTEC</a>
+                </div>
+                <p class="footer__desc">Разработка, сопровождение и продвижение сайтов в г. Челябинск</p>
+            </div>
+            <div>
+                <h4 class="footer__heading">Страницы</h4>
+                <div class="footer__links">
+                    <a href="#">Главная</a>
+                    <a href="../index.html">Веб-дизайн</a>
+                    <a href="../web-logo-site/index.html">Логотип</a>
+                </div>
+            </div>
+            <div>
+                <h4 class="footer__heading">Компания</h4>
+                <div class="footer__links">
+                    <a href="#">Портфолио</a>
+                    <a href="#">О компании</a>
+                    <a href="#">Контакты</a>
+                </div>
+            </div>
+            <div>
+                <h4 class="footer__heading">Контакты</h4>
+                <a href="tel:88001004585" class="footer__phone">8 (800) 100-45-85</a>
+                <span class="footer__address">ул. Свободы, 93, оф. 6</span>
+            </div>
+        </div>
+        <div class="footer__bottom">
+            <span class="footer__copy">© 2006-2026 Интернет-Агентство INTEC</span>
+            <div class="footer__socials">
+                <a href="#">
+                    <svg viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
+                </a>
+                <a href="#">
+                    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                </a>
+                <a href="#">
+                    <svg viewBox="0 0 24 24"><path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.391 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4.03 8.57 4.03 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.678.863 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.204.17-.407.44-.407h2.744c.373 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.813-.542 1.253-1.406 2.15-3.574 2.15-3.574.119-.254.322-.491.763-.491h1.744c.525 0 .644.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.05.17.49-.085.744-.576.744z"/></svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+const SERVICES = {
+    main:   { name: 'Digital-агентство (комплекс)', price: 200000 },
+    design: { name: 'Веб-дизайн и UX/UI', price: 85000 },
+    logo:   { name: 'Разработка логотипа', price: 25000 }
+};
+
+// ===================== API CALLS =====================
+async function apiRegister(name, email, password) {
+    const res = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error);
+    return data;
+}
+
+async function apiLogin(email, password) {
+    const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error);
+    return data;
+}
+
+async function apiGetCart(email) {
+    const res = await fetch('/api/cart?email=' + encodeURIComponent(email));
+    if (!res.ok) return { items: [] };
+    return await res.json();
+}
+
+async function apiSaveCart(email, items) {
+    const res = await fetch('/api/cart', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, items })
+    });
+    if (!res.ok) throw new Error('Ошибка сохранения корзины');
+    return await res.json();
+}
+
+// ===================== LOCAL STORAGE (кэш сессии) =====================
+function getCurrentUser() {
+    const d = localStorage.getItem('intec_current_user');
+    return d ? JSON.parse(d) : null;
+}
+function setCurrentUser(u) { localStorage.setItem('intec_current_user', JSON.stringify(u)); }
+function clearCurrentUser() { localStorage.removeItem('intec_current_user'); }
+function getLocalCart() {
+    const u = getCurrentUser();
+    if (!u) return [];
+    const c = localStorage.getItem('intec_cart_' + u.email);
+    return c ? JSON.parse(c) : [];
+}
+function saveLocalCart(cart) {
+    const u = getCurrentUser();
+    if (!u) return;
+    localStorage.setItem('intec_cart_' + u.email, JSON.stringify(cart));
+}
+
+// ===================== MODAL =====================
+function openModal(id) { document.getElementById(id).classList.add('active'); }
+function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+function switchModal(from, to) { closeModal(from); setTimeout(() => openModal(to), 200); }
+document.querySelectorAll('.modal-overlay').forEach(o => o.addEventListener('click', e => { if (e.target === o) o.classList.remove('active'); }));
+
+// ===================== FORMS =====================
+async function handleRegister(e) {
+    e.preventDefault();
+    const name = document.getElementById('regName').value.trim();
+    const email = document.getElementById('regEmail').value.trim().toLowerCase();
+    const password = document.getElementById('regPassword').value;
+    const err = document.getElementById('registerError');
+    try {
+        const data = await apiRegister(name, email, password);
+        setCurrentUser(data.user);
+        saveLocalCart([]);
+        err.classList.remove('visible');
+        closeModal('registerModal');
+        document.getElementById('registerForm').reset();
+        updateAuthUI();
+        showToast('Добро пожаловать, ' + name + '!');
+    } catch (e) {
+        err.textContent = e.message;
+        err.classList.add('visible');
+    }
+}
+
+async function handleLogin(e) {
+    e.preventDefault();
+    const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+    const password = document.getElementById('loginPassword').value;
+    const err = document.getElementById('loginError');
+    try {
+        const data = await apiLogin(email, password);
+        setCurrentUser(data.user);
+        const cartData = await apiGetCart(email);
+        saveLocalCart(cartData.items);
+        err.classList.remove('visible');
+        closeModal('loginModal');
+        document.getElementById('loginForm').reset();
+        updateAuthUI();
+        showToast('С возвращением, ' + data.user.name + '!');
+    } catch (e) {
+        err.textContent = e.message;
+        err.classList.add('visible');
+    }
+}
+
+function logout() {
+    clearCurrentUser();
+    updateAuthUI();
+    showToast('Вы вышли из аккаунта');
+}
+
+// ===================== UI =====================
+async function updateAuthUI() {
+    const user = getCurrentUser();
+    const g = document.getElementById('userGreeting');
+    const lb = document.getElementById('logoutBtn');
+    const pb = document.getElementById('profileBtn');
+    if (user) {
+        g.innerHTML = 'Привет, <strong>' + user.name + '</strong>';
+        g.classList.remove('hidden');
+        lb.classList.remove('hidden');
+        pb.style.display = 'none';
+        try {
+            const cartData = await apiGetCart(user.email);
+            if (cartData.items && cartData.items.length > 0) saveLocalCart(cartData.items);
+        } catch(e) {}
+    } else {
+        g.classList.add('hidden');
+        lb.classList.add('hidden');
+        pb.style.display = 'flex';
+    }
+    updateCartCount();
+}
+
+async function addToCart(key) {
+    const user = getCurrentUser();
+    if (!user) { openModal('loginModal'); showToast('Войдите, чтобы добавить услугу'); return; }
+    const svc = SERVICES[key];
+    if (!svc) return;
+    const cart = getLocalCart();
+    const ex = cart.find(i => i.service_key === key);
+    if (ex) { ex.quantity += 1; }
+    else { cart.push({ service_key: key, service_name: svc.name, price: svc.price, quantity: 1 }); }
+    saveLocalCart(cart);
+    try { await apiSaveCart(user.email, cart); } catch(e) {}
+    updateCartCount();
+    showToast('«' + svc.name + '» добавлено в корзину');
+}
+
+function updateCartCount() {
+    const cart = getLocalCart();
+    const total = cart.reduce((s, i) => s + i.quantity, 0);
+    const el = document.getElementById('cartCount');
+    if (total > 0) { el.textContent = total; el.classList.remove('hidden'); }
+    else { el.classList.add('hidden'); }
+}
+
+function openCart() {
+    const cart = getLocalCart();
+    if (cart.length === 0) { showToast('Корзина пуста'); return; }
+    let msg = 'Корзина:\n\n'; let total = 0;
+    cart.forEach(i => { const s = i.price * i.quantity; total += s; msg += '• ' + i.service_name + ' × ' + i.quantity + ' = ' + s.toLocaleString('ru-RU') + ' ₽\n'; });
+    msg += '\nИтого: ' + total.toLocaleString('ru-RU') + ' ₽';
+    showToast(msg);
+}
+
+function showToast(msg) {
+    const t = document.getElementById('toast'); t.textContent = msg; t.style.whiteSpace = 'pre-line';
+    t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 4000);
+}
+
+updateAuthUI();
+</script>
+
+</body>
+</html>

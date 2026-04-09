@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"name": "Study-prac",
+			"path": ".."
+		},
+		{
+			"name": "images",
+			"path": "../../../Downloads/images"
+		},
+		{
+			"name": "css",
+			"path": "../../../Downloads/css"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "Study-prac"
+	}
+}

@@ -1,0 +1,28 @@
+{
+  "routes": [
+    {
+      "src": "/web-main-site/(.*)",
+      "dest": "/web-main-site/$1"
+    },
+    {
+      "src": "/web-logo-site/(.*)",
+      "dest": "/web-logo-site/$1"
+    },
+    {
+      "src": "/images/(.*)",
+      "dest": "/images/$1"
+    },
+    {
+      "src": "/Logo.svg",
+      "dest": "/Logo.svg"
+    },
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
+}
