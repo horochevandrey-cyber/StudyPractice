@@ -1,6 +1,10 @@
 {
   "routes": [
     {
+      "src": "/",
+      "dest": "/web-main-site/index.html"
+    },
+    {
       "src": "/web-main-site/(.*)",
       "dest": "/web-main-site/$1"
     },

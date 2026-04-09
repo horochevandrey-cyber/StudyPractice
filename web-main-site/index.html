@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="./Logo.svg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&display=swap" rel="stylesheet">
     <title>INTEC — Digital-агентство</title>
@@ -450,6 +451,8 @@
             align-items: center;
             flex-wrap: wrap;
         }
+
+        .hero__buttons .btn-primary, .hero__buttons .btn-outline { min-width: 220px; }
 
         .btn-primary {
             display: inline-flex;
@@ -937,6 +940,21 @@
                 padding: 28px;
             }
         }
+        .cart-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,.5); display: none; align-items: center; justify-content: center; z-index: 2000; }
+        .cart-modal.active { display: flex; }
+        .cart-modal__content { background: #fff; border-radius: 20px; padding: 40px; width: 100%; max-width: 560px; position: relative; margin: 20px; max-height: 80vh; overflow-y: auto; }
+        .cart-modal__title { font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 28px; color: #1a1a1a; margin-bottom: 24px; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-bottom: 1px solid #eee; }
+        .cart-item:last-child { border-bottom: none; }
+        .cart-item__name { font-weight: 600; font-size: 15px; color: #1a1a1a; }
+        .cart-item__qty { font-size: 13px; color: #888; margin-top: 4px; }
+        .cart-item__price { font-weight: 700; font-size: 16px; color: #1a1a1a; white-space: nowrap; }
+        .cart-item__remove { background: none; border: none; color: #e53e3e; font-size: 13px; cursor: pointer; margin-top: 6px; }
+        .cart-item__remove:hover { text-decoration: underline; }
+        .cart-total { display: flex; justify-content: space-between; align-items: center; padding: 20px 0 0; margin-top: 16px; border-top: 2px solid #9700D3; }
+        .cart-total__label { font-weight: 700; font-size: 18px; color: #1a1a1a; }
+        .cart-total__sum { font-weight: 800; font-size: 22px; color: #9700D3; }
+        .cart-empty { text-align: center; padding: 40px 0; color: #888; font-size: 16px; }
     </style>
 </head>
 <body>
@@ -977,7 +995,7 @@
         </nav>
         <div class="header__actions">
             <!-- Корзина -->
-            <button class="header__action-btn" id="cartBtn" title="Корзина" onclick="openCart()">
+            <button class="header__action-btn" id="cartBtn" title="Корзина" onclick="openCartModal()">
                 <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0020 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
                 <span class="cart-count hidden" id="cartCount">0</span>
             </button>
@@ -1057,7 +1075,7 @@
             <h1 class="hero__title">ВАШИ ИДЕИ ГОТОВЫ К ЗАПУСКУ</h1>
             <div class="hero__buttons">
                 <button class="btn-primary" onclick="addToCart('main')">Стать клиентом</button>
-                <a href="#" class="btn-outline">Заполнить бриф</a>
+                <button class="btn-outline" onclick="scrollToForm()">Заполнить бриф</button>
             </div>
         </div>
         <div class="hero__image">
@@ -1125,15 +1143,12 @@
     <div class="cta__inner container">
         <div>
             <h2 class="cta__title">ЗАЯВКА</h2>
-            <form class="cta__form" onsubmit="event.preventDefault(); showToast('Заявка отправлена!');">
-                <input type="email" placeholder="Email:">
-                <input type="tel" placeholder="Номер телефона:">
-                <textarea placeholder="Ваш комментарий:"></textarea>
+            <form class="cta__form" onsubmit="submitRequest(event)">
+                <input type="email" id="reqEmail" placeholder="Email:" required>
+                <input type="tel" id="reqPhone" placeholder="Номер телефона:">
+                <textarea id="reqComment" placeholder="Ваш комментарий:"></textarea>
                 <button type="submit" class="btn-primary">Оставить заявку</button>
-                <div class="cta__consent">
-                    <input type="checkbox">
-                    <span>Вы соглашаетесь с условиями обработки персональных данных (ознакомиться→)</span>
-                </div>
+                <div class="cta__consent"><input type="checkbox" required><span>Вы соглашаетесь с условиями обработки персональных данных (ознакомиться→)</span></div>
             </form>
         </div>
         <div class="cta__contacts">
@@ -1206,6 +1221,16 @@
         </div>
     </div>
 </footer>
+
+<!-- CART MODAL -->
+<div class="cart-modal" id="cartModal">
+    <div class="cart-modal__content">
+        <button class="modal__close" onclick="closeCartModal()"><svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>
+        <h2 class="cart-modal__title">Корзина</h2>
+        <div id="cartItems"></div>
+        <div id="cartFooter"></div>
+    </div>
+</div>
 
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
@@ -1376,13 +1401,57 @@ function updateCartCount() {
     else { el.classList.add('hidden'); }
 }
 
-function openCart() {
+function openCartModal() {
     const cart = getLocalCart();
-    if (cart.length === 0) { showToast('Корзина пуста'); return; }
-    let msg = 'Корзина:\n\n'; let total = 0;
-    cart.forEach(i => { const s = i.price * i.quantity; total += s; msg += '• ' + i.service_name + ' × ' + i.quantity + ' = ' + s.toLocaleString('ru-RU') + ' ₽\n'; });
-    msg += '\nИтого: ' + total.toLocaleString('ru-RU') + ' ₽';
-    showToast(msg);
+    const itemsEl = document.getElementById('cartItems');
+    const footerEl = document.getElementById('cartFooter');
+    if (cart.length === 0) {
+        itemsEl.innerHTML = '<div class="cart-empty">Корзина пуста</div>';
+        footerEl.innerHTML = '';
+    } else {
+        let total = 0; let html = '';
+        cart.forEach((item, idx) => {
+            const sum = item.price * item.quantity; total += sum;
+            html += '<div class="cart-item"><div><div class="cart-item__name">' + item.service_name + '</div><div class="cart-item__qty">× ' + item.quantity + '</div><button class="cart-item__remove" onclick="removeFromCart(' + idx + ')">Удалить</button></div><div class="cart-item__price">' + sum.toLocaleString('ru-RU') + ' ₽</div></div>';
+        });
+        itemsEl.innerHTML = html;
+        footerEl.innerHTML = '<div class="cart-total"><span class="cart-total__label">Итого:</span><span class="cart-total__sum">' + total.toLocaleString('ru-RU') + ' ₽</span></div>';
+    }
+    document.getElementById('cartModal').classList.add('active');
+}
+
+function closeCartModal() { document.getElementById('cartModal').classList.remove('active'); }
+
+async function removeFromCart(idx) {
+    const user = getCurrentUser(); if (!user) return;
+    const cart = getLocalCart(); cart.splice(idx, 1);
+    saveLocalCart(cart);
+    try { await apiSaveCart(user.email, cart); } catch(e) {}
+    updateCartCount(); openCartModal();
+}
+
+document.getElementById('cartModal').addEventListener('click', function(e) { if (e.target === this) closeCartModal(); });
+function openCart() { openCartModal(); }
+function scrollToForm() { document.querySelector('.cta').scrollIntoView({ behavior: 'smooth' }); }
+
+async function submitRequest(e) {
+    e.preventDefault();
+    const email = document.getElementById('reqEmail').value.trim();
+    const phone = document.getElementById('reqPhone').value.trim();
+    const comment = document.getElementById('reqComment').value.trim();
+    try {
+        const res = await fetch('/api/request', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, phone, comment })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error);
+        showToast('Заявка отправлена!');
+        e.target.reset();
+    } catch (err) {
+        showToast('Ошибка: ' + err.message);
+    }
 }
 
 function showToast(msg) {
