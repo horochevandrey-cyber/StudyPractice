@@ -21,6 +21,10 @@
       "dest": "/Logo.svg"
     },
     {
+      "src": "/js/(.*)",
+      "dest": "/js/$1"
+    },
+    {
       "src": "/api/(.*)",
       "dest": "/api/$1"
     },
