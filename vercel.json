@@ -21,6 +21,14 @@
       "dest": "/Logo.svg"
     },
     {
+      "src": "/portfolio/(.*)",
+      "dest": "/portfolio/$1"
+    },
+    {
+      "src": "/about/(.*)",
+      "dest": "/about/$1"
+    },
+    {
       "src": "/js/(.*)",
       "dest": "/js/$1"
     },

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="./Logo.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+    <title>INTEC — О компании</title>
+    <style>
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Inter',sans-serif;color:#1a1a1a;background:#fff;line-height:1.5}
+        a{text-decoration:none;color:inherit;transition:color .2s}a:hover{color:#9700D3}
+        img{max-width:100%;height:auto;display:block}ul{list-style:none}
+        .container{max-width:1240px;margin:0 auto;padding:0 20px}
+        button{cursor:pointer;font-family:'Inter',sans-serif;border:none;background:none}
+
+        .topbar{background:#fff;border-bottom:1px solid #e5e5e5;padding:10px 0;font-size:13px}
+        .topbar__inner{display:flex;align-items:center;gap:24px}
+        .topbar__location{display:flex;align-items:center;gap:6px;font-size:13px;color:#333}
+        .topbar__location svg{width:14px;height:14px;fill:#9700D3;flex-shrink:0}
+        .topbar__links{display:flex;gap:18px;flex-wrap:nowrap}
+        .topbar__links a{font-weight:500;font-size:13px;color:#555;white-space:nowrap}
+        .topbar__links a:hover{color:#9700D3}
+        .topbar__cta{margin-left:auto;background:#9700D3;color:#fff;padding:8px 20px;border-radius:6px;font-size:13px;font-weight:600;transition:background .2s;flex-shrink:0}
+        .topbar__cta:hover{background:#7a00a8;color:#fff}
+
+        .header{background:#1e1e2e;padding:16px 0;position:sticky;top:0;z-index:100}
+        .header__inner{display:flex;align-items:center;gap:20px}
+        .header__logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
+        .header__logo img{width:28px;height:30px}
+        .header__logo-text{font-weight:800;font-size:18px;color:#fff;letter-spacing:1px}
+        .header__nav{display:flex;gap:24px;flex-wrap:nowrap;flex:1;justify-content:center}
+        .header__nav a{color:rgba(255,255,255,.85);font-size:15px;font-weight:600;white-space:nowrap}
+        .header__nav a:hover{color:#c77dff}
+        .header__phone{color:#fff;font-weight:700;font-size:17px;white-space:nowrap;flex-shrink:0}
+        .header__address{color:rgba(255,255,255,.6);font-size:13px;white-space:nowrap}
+        .header__actions{display:flex;align-items:center;gap:12px;margin-left:auto;flex-shrink:0}
+        .header__action-btn{width:42px;height:42px;border-radius:10px;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;transition:background .2s;position:relative;cursor:pointer;border:none;flex-shrink:0}
+        .header__action-btn:hover{background:rgba(255,255,255,.2)}
+        .header__action-btn svg{width:22px;height:22px;fill:#fff}
+        .cart-count{position:absolute;top:-4px;right:-4px;background:#9700D3;color:#fff;font-size:10px;font-weight:700;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+        .cart-count.hidden{display:none}
+        .user-greeting{color:rgba(255,255,255,.85);font-size:13px;font-weight:500;white-space:nowrap}.user-greeting.hidden{display:none}.user-greeting strong{color:#c77dff}
+        .btn-logout{color:rgba(255,255,255,.6);font-size:12px;padding:6px 12px;border-radius:6px;border:1px solid rgba(255,255,255,.2);transition:all .2s;background:transparent;flex-shrink:0;white-space:nowrap}.btn-logout:hover{background:rgba(255,255,255,.1);color:#fff}.btn-logout.hidden{display:none}
+        .burger{display:none;flex-direction:column;justify-content:center;gap:5px;width:32px;height:32px;cursor:pointer;border:none;background:none;padding:4px;flex-shrink:0}
+        .burger span{display:block;width:100%;height:2px;background:#fff;border-radius:2px;transition:all .3s}
+        .burger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}.burger.active span:nth-child(2){opacity:0}.burger.active span:nth-child(3){transform:rotate(-45deg) translate(6px,-6px)}
+
+        .hero{padding:80px 0 60px}
+        .hero__title{font-family:'Manrope',sans-serif;font-weight:800;font-size:48px;line-height:1.15;color:#1a1a1a;margin-bottom:20px}
+        .hero__desc{font-size:18px;color:#444;line-height:1.7;max-width:700px}
+
+        .about-section{padding:60px 0}
+        .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+        .about-text h2{font-family:'Manrope',sans-serif;font-weight:800;font-size:32px;color:#1a1a1a;margin-bottom:16px}
+        .about-text p{font-size:16px;color:#444;line-height:1.7;margin-bottom:16px}
+
+        .stats{padding:60px 0;background:#f5f3f7}
+        .stats__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+        .stat{text-align:center}
+        .stat__number{font-family:'Manrope',sans-serif;font-weight:800;font-size:48px;color:#9700D3;line-height:1}
+        .stat__label{font-size:15px;color:#555;margin-top:8px}
+
+        .values{padding:80px 0}
+        .values__title{font-family:'Manrope',sans-serif;font-weight:800;font-size:36px;color:#1a1a1a;margin-bottom:40px;text-align:center}
+        .values__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+        .value-card{background:#f9f7fc;border-radius:16px;padding:32px 24px}
+        .value-card__icon{width:56px;height:56px;background:#9700D3;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+        .value-card__icon svg{width:28px;height:28px;fill:#fff}
+        .value-card__title{font-weight:700;font-size:20px;color:#1a1a1a;margin-bottom:10px}
+        .value-card__text{font-size:15px;color:#555;line-height:1.6}
+
+        .team{padding:80px 0;background:#f5f3f7}
+        .team__title{font-family:'Manrope',sans-serif;font-weight:800;font-size:36px;color:#1a1a1a;margin-bottom:40px;text-align:center}
+        .team__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+        .team-card{background:#fff;border-radius:16px;padding:32px;text-align:center}
+        .team-card__avatar{width:100px;height:100px;border-radius:50%;background:#9700D3;margin:0 auto 16px;display:flex;align-items:center;justify-content:center}
+        .team-card__avatar svg{width:48px;height:48px;fill:#fff}
+        .team-card__name{font-weight:700;font-size:18px;color:#1a1a1a;margin-bottom:4px}
+        .team-card__role{font-size:14px;color:#888}
+
+        .cta{padding:80px 0}
+        .cta__inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+        .cta__title{font-family:'Manrope',sans-serif;font-weight:800;font-size:44px;color:#1a1a1a;margin-bottom:28px}
+        .cta__form{display:flex;flex-direction:column;gap:14px}
+        .cta__form input,.cta__form textarea{width:100%;padding:14px 16px;border:1px solid #ddd;border-radius:10px;font-size:15px;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s;color:#333}
+        .cta__form input:focus,.cta__form textarea:focus{border-color:#9700D3}
+        .cta__form textarea{min-height:80px;resize:vertical}
+        .cta__form input::placeholder,.cta__form textarea::placeholder{color:#999}
+        .cta__consent{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:#777;margin-top:4px}
+        .cta__consent input[type="checkbox"]{width:20px;height:20px;accent-color:#9700D3;margin-top:2px;flex-shrink:0}
+        .cta__contacts h3{font-family:'Manrope',sans-serif;font-weight:800;font-size:28px;color:#1a1a1a;margin-bottom:20px}
+        .cta__contacts p{font-size:17px;color:#333;margin-bottom:10px;font-weight:500}
+        .cta__contacts p:last-of-type{margin-bottom:24px}
+        .cta__socials{display:flex;gap:12px}
+        .cta__socials a{width:48px;height:48px;border-radius:50%;background:#9700D3;display:flex;align-items:center;justify-content:center;transition:opacity .2s}
+        .cta__socials a:hover{opacity:.8}
+        .cta__socials svg{width:24px;height:24px;fill:#fff}
+
+        .footer{background:#1e1e2e;color:#fff;padding:50px 0 30px}
+        .footer__top{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:30px;margin-bottom:40px}
+        .footer__logo{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+        .footer__logo img{width:28px;height:30px}
+        .footer__logo-text{font-weight:800;font-size:18px;letter-spacing:1px}
+        .footer__desc{font-size:13px;color:rgba(255,255,255,.55);line-height:1.5}
+        .footer__heading{font-weight:700;font-size:14px;margin-bottom:14px;color:rgba(255,255,255,.9)}
+        .footer__links{display:flex;flex-direction:column;gap:10px}
+        .footer__links a{font-size:13px;color:rgba(255,255,255,.6)}.footer__links a:hover{color:#c77dff}
+        .footer__phone{font-weight:700;font-size:20px;color:#fff;display:block;margin-bottom:6px}
+        .footer__address{font-size:13px;color:rgba(255,255,255,.55)}
+        .footer__bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+        .footer__copy{font-size:12px;color:rgba(255,255,255,.4)}
+        .footer__socials{display:flex;gap:10px}
+        .footer__socials a{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;transition:background .2s}
+        .footer__socials a:hover{background:#9700D3}
+        .footer__socials svg{width:20px;height:20px;fill:rgba(255,255,255,.7)}
+
+        .toast{position:fixed;bottom:24px;right:24px;background:#1a1a1a;color:#fff;padding:14px 24px;border-radius:10px;font-size:14px;font-weight:500;z-index:2000;transform:translateY(100px);opacity:0;transition:all .3s}.toast.show{transform:translateY(0);opacity:1}
+
+        .cart-modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:2000}.cart-modal.active{display:flex}
+        .cart-modal__content{background:#fff;border-radius:20px;padding:40px;width:100%;max-width:560px;position:relative;margin:20px;max-height:80vh;overflow-y:auto}
+        .cart-modal__title{font-family:'Manrope',sans-serif;font-weight:800;font-size:28px;color:#1a1a1a;margin-bottom:24px}
+        .cart-item{display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid #eee}.cart-item:last-child{border-bottom:none}
+        .cart-item__name{font-weight:600;font-size:15px;color:#1a1a1a}.cart-item__qty{font-size:13px;color:#888;margin-top:4px}
+        .cart-item__price{font-weight:700;font-size:16px;color:#1a1a1a;white-space:nowrap}.cart-item__remove{background:none;border:none;color:#e53e3e;font-size:13px;cursor:pointer;margin-top:6px}.cart-item__remove:hover{text-decoration:underline}
+        .cart-total{display:flex;justify-content:space-between;align-items:center;padding:20px 0 0;margin-top:16px;border-top:2px solid #9700D3}
+        .cart-total__label{font-weight:700;font-size:18px;color:#1a1a1a}.cart-total__sum{font-weight:800;font-size:22px;color:#9700D3}
+        .cart-empty{text-align:center;padding:40px 0;color:#888;font-size:16px}
+
+        @media(max-width:1024px){
+            .about-grid,.cta__inner{grid-template-columns:1fr}
+            .stats__grid{grid-template-columns:repeat(2,1fr)}
+            .values__grid,.team__grid{grid-template-columns:repeat(2,1fr)}
+            .footer__top{grid-template-columns:1fr 1fr}
+        }
+        @media(max-width:768px){
+            .topbar__inner{flex-direction:column;align-items:center;gap:12px;text-align:center}
+            .topbar__location{justify-content:center}.topbar__links{justify-content:center}.topbar__cta{margin-left:0}
+            .header{padding:12px 0}.header__inner{flex-wrap:wrap;justify-content:space-between;gap:12px}
+            .header__nav{display:none;position:absolute;top:100%;left:0;right:0;background:#1e1e2e;flex-direction:column;align-items:center;gap:0;padding:0 0 16px;z-index:99;border-top:1px solid rgba(255,255,255,.1)}
+            .header__nav.active{display:flex}.header__nav a{padding:12px 20px;width:100%;text-align:center;font-size:16px;border-bottom:1px solid rgba(255,255,255,.05)}
+            .header__nav a:last-child{border-bottom:none}.header__nav a:hover{background:rgba(255,255,255,.05)}
+            .header__phone,.header__address{display:none}.burger{display:flex}
+            .hero__title{font-size:32px}.footer__top{grid-template-columns:1fr;gap:24px}.footer__bottom{flex-direction:column;text-align:center}
+            .stats__grid{grid-template-columns:1fr 1fr}.values__grid,.team__grid{grid-template-columns:1fr}
+        }
+        @media(max-width:480px){.hero__title{font-size:26px}.cta__title{font-size:28px}}
+    </style>
+</head>
+<body>
+
+<div class="topbar">
+    <div class="topbar__inner container">
+        <div class="topbar__location"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"/></svg><span>Челябинск</span></div>
+        <div class="topbar__links"><a href="#">Акции</a><a href="#">Статьи</a><a href="#">Блог</a><a href="#">Новости</a><a href="#">Вакансии</a><a href="#">Техподдержка</a><a href="#">Партнерам</a></div>
+        <a href="#" class="topbar__cta">Купить онлайн</a>
+    </div>
+</div>
+
+<header class="header">
+    <div class="header__inner container">
+        <div class="header__logo"><a href="../web-main-site/index.html"><img src="./Logo.svg" alt="INTEC Logo"></a><a href="../web-main-site/index.html" class="header__logo-text">INTEC</a></div>
+        <nav class="header__nav">
+            <a href="../web-main-site/index.html">Главная</a>
+            <a href="../index.html">Веб-дизайн</a>
+            <a href="../web-logo-site/index.html">Логотип</a>
+            <a href="#">О компании</a>
+            <a href="../portfolio/index.html">Портфолио</a>
+        </nav>
+        <div class="header__actions">
+            <button class="header__action-btn" id="cartBtn" title="Корзина" onclick="openCartModal()"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0020 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg><span class="cart-count hidden" id="cartCount">0</span></button>
+            <button class="header__action-btn" id="profileBtn" title="Войти" onclick="openModal('loginModal')"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></button>
+            <span class="user-greeting hidden" id="userGreeting"></span>
+            <button class="btn-logout hidden" id="logoutBtn" onclick="logout()">Выйти</button>
+        </div>
+        <button class="burger" id="burger" onclick="toggleBurger()" aria-label="Меню"><span></span><span></span><span></span></button>
+    </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="container">
+        <div class="hero__breadcrumb" style="font-size:14px;color:#888;margin-bottom:12px"><a href="../web-main-site/index.html">Главная</a> / О компании</div>
+        <h1 class="hero__title">О КОМПАНИИ INTEC</h1>
+        <p class="hero__desc">Мы — команда профессионалов, которая помогает бизнесу расти, привлекать клиентов и увеличивать прибыль с помощью современных цифровых решений.</p>
+    </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section">
+    <div class="container">
+        <div class="about-grid">
+            <div class="about-text">
+                <h2>Наша история</h2>
+                <p>Интернет-агентство INTEC было основано в 2006 году в Челябинске. За более чем 18 лет работы мы выросли из небольшой студии в полноценное digital-агентство с командой разработчиков, дизайнеров и маркетологов.</p>
+                <p>Мы являемся аккредитованной ИТ-компанией и золотым сертифицированным партнёром 1С-Битрикс. Наша команда входит в топ-3 разработчиков готовых сайтов на 1С-Битрикс в России.</p>
+                <p>Наша миссия — делать цифровой маркетинг понятным, предсказуемым и доступным для предпринимателей любого масштаба.</p>
+            </div>
+            <div style="background:#f5f3f7;border-radius:16px;padding:40px;text-align:center">
+                <div style="font-size:64px;margin-bottom:16px">🏢</div>
+                <h3 style="font-size:22px;margin-bottom:8px">С 2006 года</h3>
+                <p style="color:#666;font-size:15px">Более 18 лет успешной работы на рынке цифровых решений</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- STATS -->
+<section class="stats">
+    <div class="container">
+        <div class="stats__grid">
+            <div class="stat"><div class="stat__number">500+</div><div class="stat__label">Реализованных проектов</div></div>
+            <div class="stat"><div class="stat__number">18</div><div class="stat__label">Лет на рынке</div></div>
+            <div class="stat"><div class="stat__number">30+</div><div class="stat__label">Специалистов в команде</div></div>
+            <div class="stat"><div class="stat__number">ТОП-3</div><div class="stat__label">Разработчиков на 1С-Битрикс</div></div>
+        </div>
+    </div>
+</section>
+
+<!-- VALUES -->
+<section class="values">
+    <div class="container">
+        <h2 class="values__title">Наши ценности</h2>
+        <div class="values__grid">
+            <div class="value-card">
+                <div class="value-card__icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div>
+                <h3 class="value-card__title">Качество</h3>
+                <p class="value-card__text">Каждый проект проходит несколько этапов проверки. Мы не выпускаем сырые решения — только протестированные и готовые к работе продукты.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-card__icon"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div>
+                <h3 class="value-card__title">Командная работа</h3>
+                <p class="value-card__text">Над каждым проектом работают разработчики, дизайнеры и маркетологи вместе. Это гарантирует комплексный подход к решению задач.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-card__icon"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg></div>
+                <h3 class="value-card__title">Прозрачность</h3>
+                <p class="value-card__text">Клиент всегда в курсе статуса проекта. Мы предоставляем подробные отчёты и открыто обсуждаем все этапы работы.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TEAM -->
+<section class="team">
+    <div class="container">
+        <h2 class="team__title">Наша команда</h2>
+        <div class="team__grid">
+            <div class="team-card">
+                <div class="team-card__avatar"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+                <div class="team-card__name">Ярослав Голуб</div>
+                <div class="team-card__role">Руководитель компании</div>
+            </div>
+            <div class="team-card">
+                <div class="team-card__avatar"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+                <div class="team-card__name">Отдел разработки</div>
+                <div class="team-card__role">Frontend и Backend</div>
+            </div>
+            <div class="team-card">
+                <div class="team-card__avatar"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+                <div class="team-card__name">Отдел дизайна</div>
+                <div class="team-card__role">UI/UX и графика</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+    <div class="cta__inner container">
+        <div>
+            <h2 class="cta__title">ЗАЯВКА</h2>
+            <form class="cta__form" onsubmit="submitRequest(event)">
+                <input type="email" id="reqEmail" placeholder="Email:" required>
+                <input type="tel" id="reqPhone" placeholder="Номер телефона:">
+                <textarea id="reqComment" placeholder="Ваш комментарий:"></textarea>
+                <button type="submit" class="btn-primary" style="background:#9700D3;color:#fff;padding:14px 32px;border-radius:8px;font-size:15px;font-weight:600;border:none;cursor:pointer">Оставить заявку</button>
+                <div class="cta__consent"><input type="checkbox" required><span>Вы соглашаетесь с условиями обработки персональных данных (ознакомиться→)</span></div>
+            </form>
+        </div>
+        <div class="cta__contacts">
+            <h3>Наши контакты:</h3>
+            <p>Номер телефона: +7 (904) 933-28-44</p>
+            <p>Почта: sale@asit.club</p>
+            <div class="cta__socials">
+                <a href="#"><svg viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg></a>
+                <a href="#"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+                <a href="#"><svg viewBox="0 0 24 24"><path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.391 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4.03 8.57 4.03 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.678.863 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.204.17-.407.44-.407h2.744c.373 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.813-.542 1.253-1.406 2.15-3.574 2.15-3.574.119-.254.322-.491.763-.491h1.744c.525 0 .644.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.05.17.49-.085.744-.576.744z"/></svg></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer__top">
+            <div><div class="footer__logo"><a href="../web-main-site/index.html"><img src="./Logo.svg" alt="INTEC Logo"></a><a href="../web-main-site/index.html" class="footer__logo-text">INTEC</a></div><p class="footer__desc">Разработка, сопровождение и продвижение сайтов в г. Челябинск</p></div>
+            <div><h4 class="footer__heading">Страницы</h4><div class="footer__links"><a href="../web-main-site/index.html">Главная</a><a href="../index.html">Веб-дизайн</a><a href="../web-logo-site/index.html">Логотип</a><a href="#">О компании</a><a href="../portfolio/index.html">Портфолио</a></div></div>
+            <div><h4 class="footer__heading">Компания</h4><div class="footer__links"><a href="#">Портфолио</a><a href="#">О компании</a><a href="#">Контакты</a></div></div>
+            <div><h4 class="footer__heading">Контакты</h4><a href="tel:88001004585" class="footer__phone">8 (800) 100-45-85</a><span class="footer__address">ул. Свободы, 93, оф. 6</span></div>
+        </div>
+        <div class="footer__bottom">
+            <span class="footer__copy">© 2006-2026 Интернет-Агентство INTEC</span>
+            <div class="footer__socials">
+                <a href="#"><svg viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg></a>
+                <a href="#"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+                <a href="#"><svg viewBox="0 0 24 24"><path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.391 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4.03 8.57 4.03 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.678.863 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.204.17-.407.44-.407h2.744c.373 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.813-.542 1.253-1.406 2.15-3.574 2.15-3.574.119-.254.322-.491.763-.491h1.744c.525 0 .644.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.05.17.49-.085.744-.576.744z"/></svg></a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<div class="cart-modal" id="cartModal"><div class="cart-modal__content"><button class="modal__close" onclick="closeCartModal()"><svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button><h2 class="cart-modal__title">Корзина</h2><div id="cartItems"></div><div id="cartFooter"></div></div></div>
+<div class="toast" id="toast"></div>
+<script src="/js/controllers/ServicesController.js"></script>
+<script src="/js/controllers/UIController.js"></script>
+<script src="/js/app.js"></script>
+</body>
+</html>
